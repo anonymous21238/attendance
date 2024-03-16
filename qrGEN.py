@@ -20,7 +20,7 @@ for roll in rollnumbers:
     )
     qr.add_data(roll)
     qr.make(fit=True)
-    img = qr.make_image(fill_color="white", back_color="black")
+    img = qr.make_image(fill_color="black", back_color="white")
     img.save('QrCodes\\roll_number_{}.png'.format(roll))
 
 print("Qr codes have been generated.")
