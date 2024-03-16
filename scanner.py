@@ -18,20 +18,31 @@ def scan_qr_and_record():
         
         # If there is a QR code
         if bbox is not None and data:
-            print("Scanned Data:", data) # data is the roll number in this case
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            # print("Scanned Data:", data) # data is the roll number in this case
+            # timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
             # Insert into database
             conn = sqlite3.connect('Database\\attendance.db')
             c = conn.cursor()
-            c.execute("INSERT INTO attendance VALUES (?, ?, ?)", (datetime.datetime.now().date(), data, timestamp))
-            conn.commit()
-            conn.close()
-            
-            print(f"Attendance recorded for roll number: {data} at {timestamp}")
-            
-            # Break after scanning the required QR code
-            break
+
+            c.execute("SELECT * FROM attendance WHERE date = ? AND roll_number = ?", (datetime.datetime.now().date(), data))
+            existing_entry = c.fetchone()
+
+            if existing_entry:
+                print("You have already scanned today")
+                break
+            else:
+                print("Scanned Data:", data) # data is the roll number in this case
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                c.execute("INSERT INTO attendance VALUES (?, ?, ?)", (datetime.datetime.now().date(), data, timestamp))
+                conn.commit()
+                conn.close()
+                
+                print(f"Attendance recorded for roll number: {data} at {timestamp}")
+                
+                # Break after scanning the required QR code
+                break
             
         # Display the resulting frame
         cv2.imshow('QR Code Scanner', img)
