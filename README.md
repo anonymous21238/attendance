@@ -1,4 +1,4 @@
-# attendance
+# attendance Tracker
 An QR attendance taking solution.
 
 Project Title: Attendance Tracker
