@@ -23,7 +23,8 @@ def scan_qr_and_record():
             # timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
             # Insert into database
-            conn = sqlite3.connect('Database\\attendance.db')
+            # conn = sqlite3.connect('Database\\attendance.db')
+            conn = sqlite3.connect('attendance.db')
             c = conn.cursor()
 
             c.execute("SELECT * FROM attendance WHERE date = ? AND roll_number = ?", (datetime.datetime.now().date(), data))

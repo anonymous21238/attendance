@@ -1,29 +1,35 @@
-# import qrGEN
-# import dbMaking
-# import scanner
-
 import sqlite3
+import importlib
 
 def option1():
     print("Option 1 selected")
     import scanner
+    importlib.reload(scanner)
 
 
 def option2():
     print("Option 2 selected")
     import attHistory
+    importlib.reload(attHistory)
 
 def option3():
-    print("Option 3 selected")
-    print("1. Make more QR codes")
-    print("2. Make new Database")
-    n = int(input("Enter your choice: "))
-    if(n == 1):
-        import qrGEN
-    if(n == 2):
-        import dbMaking
+    # password = 123
+    password = input("Enter the password")
+    if(password == '123'):
+        print("Option 3 selected")
+        print("1. Make more QR codes")
+        print("2. Make new Database")
+        n = int(input("Enter your choice: "))
+        if(n == 1):
+            import qrGEN
+            importlib.reload(qrGEN)
+        if(n == 2):
+            import dbMaking
+            importlib.reload(dbMaking)
+        else:
+            print("No such option exists")
     else:
-        print("No such option exists")
+        print("Wrong Password")
 
     
 
